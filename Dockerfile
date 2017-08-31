@@ -26,9 +26,6 @@ WORKDIR ${HOME}
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod +x /sbin/entrypoint.sh
 
-COPY build/action.d/ ${HOME}/action.d/
-COPY build/filter.d/ ${HOME}/filter.d/
-COPY build/jail.d/ ${HOME}/jail.d/
 COPY build/jail.local ${HOME}
 
 ENTRYPOINT ["/sbin/entrypoint.sh"]
