@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+
+PIDFILE=/var/run/${APP}/${APP}.pid
+
+[ -e "$PIDFILE" ] || exit 1

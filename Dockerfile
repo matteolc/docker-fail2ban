@@ -18,14 +18,22 @@ RUN export DEBIAN_FRONTEND=noninteractive && \
         fail2ban \
         iptables \
         nullmailer \
-        whois \    
+        whois \
+        monit \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR ${HOME}
 
+COPY runtime/ ${HOME}/
 COPY entrypoint.sh /sbin/entrypoint.sh
 RUN chmod +x /sbin/entrypoint.sh
 
+
 COPY build/jail.local ${HOME}
+COPY build/${APP} /etc/monit/conf.d
+COPY build/monitrc.local /etc/monit/conf.d
+
+HEALTHCHECK --interval=5s --timeout=10s --retries=3 \
+  CMD ${HOME}/healthcheck
 
 ENTRYPOINT ["/sbin/entrypoint.sh"]

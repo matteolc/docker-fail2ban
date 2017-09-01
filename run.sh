@@ -27,7 +27,8 @@ docker run -d \
     --name ${APP} \
     --net host \
     --privileged \
-    voxbox/fail2ban  
+    --restart=always \
+    voxbox/${APP}  
 echo "---------------------------------------------------------------------"
 echo "Test"
 echo "---------------------------------------------------------------------"
